@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">GoSkate</string>
+    <string name="welcome_message">Go Skate</string>
+    <string name="label_email">Email</string>
+</resources>
