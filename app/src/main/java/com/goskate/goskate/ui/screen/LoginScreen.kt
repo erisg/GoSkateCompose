@@ -1,10 +1,9 @@
-package com.goskate.goskate
+package com.goskate.goskate.ui.screen
 
 import android.os.Build.VERSION.SDK_INT
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -35,10 +34,11 @@ import coil.decode.GifDecoder
 import coil.decode.ImageDecoderDecoder
 import coil.request.ImageRequest
 import coil.size.OriginalSize
+import com.goskate.goskate.R
+import com.goskate.goskate.ui.components.ButtonWithCornerIcon
 import com.goskate.goskate.ui.components.ButtonWithCornerShape
 import com.goskate.goskate.ui.components.TextFieldWithIcons
 import com.goskate.goskate.ui.theme.GoSkateTheme
-import com.goskate.goskate.ui.theme.white
 
 @Composable
 fun LoginScreen() {
@@ -164,7 +164,7 @@ fun LoginScreen() {
                 },
             text = "Log in",
         )
-        Row(
+        Column(
             modifier = Modifier
                 .wrapContentWidth()
                 .wrapContentHeight()
@@ -179,11 +179,13 @@ fun LoginScreen() {
 
             Text(
                 text = "Registrarse",
-                modifier = Modifier.padding(start = 5.dp),
+                modifier = Modifier
+                    .padding(start = 5.dp)
+                    .align(Alignment.CenterHorizontally),
                 fontWeight = FontWeight.Bold,
             )
         }
-        ButtonWithCornerShape(
+        ButtonWithCornerIcon(
             modifier = Modifier
                 .height(45.dp)
                 .fillMaxWidth()
