@@ -4,6 +4,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -13,6 +14,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.input.TextFieldValue
 import com.goskate.goskate.ui.theme.Shapes
+import com.goskate.goskate.ui.theme.black
+import com.goskate.goskate.ui.theme.gray
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -33,5 +36,32 @@ fun TextFieldWithIcons(
         label = { Text(text = label) },
         placeholder = { Text(text = placeHolder) },
         shape = Shapes.medium,
+        colors = TextFieldDefaults.outlinedTextFieldColors(
+            focusedBorderColor = black,
+            unfocusedBorderColor = gray,
+        ),
+    )
+}
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun TextField(
+    modifier: Modifier,
+    label: String,
+    placeHolder: String,
+) {
+    var text by remember { mutableStateOf(TextFieldValue("")) }
+    return OutlinedTextField(
+        value = text,
+        onValueChange = {
+            text = it
+        },
+        modifier = modifier,
+        label = { Text(text = label) },
+        placeholder = { Text(text = placeHolder) },
+        shape = Shapes.medium,
+        colors = TextFieldDefaults.outlinedTextFieldColors(
+            focusedBorderColor = black,
+            unfocusedBorderColor = gray,
+        ),
     )
 }

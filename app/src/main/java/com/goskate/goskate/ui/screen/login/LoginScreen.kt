@@ -1,7 +1,8 @@
-package com.goskate.goskate.ui.screen
+package com.goskate.goskate.ui.screen.login
 
 import android.os.Build.VERSION.SDK_INT
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -28,6 +29,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import coil.ImageLoader
 import coil.compose.rememberAsyncImagePainter
 import coil.decode.GifDecoder
@@ -35,19 +38,27 @@ import coil.decode.ImageDecoderDecoder
 import coil.request.ImageRequest
 import coil.size.OriginalSize
 import com.goskate.goskate.R
-import com.goskate.goskate.ui.components.ButtonWithCornerIcon
 import com.goskate.goskate.ui.components.ButtonWithCornerShape
 import com.goskate.goskate.ui.components.TextFieldWithIcons
 import com.goskate.goskate.ui.theme.GoSkateTheme
 
 @Composable
-fun LoginScreen() {
+fun LoginScreen(navController:NavController) {
     ConstraintLayout(modifier = Modifier.fillMaxSize()) {
         val (
-            header, divider, welcome, dividerContent, email, password,
-            dividerEditText, bottom, signUp, loginGoogle
+            header,
+            divider,
+            welcome,
+            dividerContent,
+            email,
+            password,
+            dividerEditText,
+            bottom,
+            signUp, loginGoogle,
         ) = createRefs()
+
         val context = LocalContext.current
+
         val imageLoader = ImageLoader.Builder(context)
             .components {
                 if (SDK_INT >= 28) {
@@ -163,7 +174,7 @@ fun LoginScreen() {
                     end.linkTo(parent.end)
                 },
             text = "Log in",
-        )
+        ) {}
         Column(
             modifier = Modifier
                 .wrapContentWidth()
@@ -181,29 +192,21 @@ fun LoginScreen() {
                 text = "Registrarse",
                 modifier = Modifier
                     .padding(start = 5.dp)
-                    .align(Alignment.CenterHorizontally),
+                    .align(Alignment.CenterHorizontally)
+                    .clickable {
+                        navController.navigate("sigIn")
+                    },
                 fontWeight = FontWeight.Bold,
             )
         }
-        ButtonWithCornerIcon(
-            modifier = Modifier
-                .height(45.dp)
-                .fillMaxWidth()
-                .padding(horizontal = 24.dp)
-                .constrainAs(loginGoogle) {
-                    top.linkTo(signUp.bottom)
-                    start.linkTo(parent.start)
-                    end.linkTo(parent.end)
-                },
-            text = "Log with google",
-        )
     }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun LoginScreenPreview() {
+    val navController = rememberNavController()
     GoSkateTheme {
-        LoginScreen()
+        LoginScreen(navController)
     }
 }
