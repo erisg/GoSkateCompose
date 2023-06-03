@@ -6,6 +6,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.goskate.goskate.ui.screen.login.LoginScreen
 import com.goskate.goskate.ui.screen.login.SigInScreen
+import com.goskate.goskate.ui.screen.map.MapsScreen
 
 @Composable
 fun NavigationView() {
@@ -15,7 +16,10 @@ fun NavigationView() {
             LoginScreen(navController)
         }
         composable("sigIn") {
-            SigInScreen()
+            SigInScreen(navController)
+        }
+        composable("map") {
+            MapsScreen()
         }
     }
 }

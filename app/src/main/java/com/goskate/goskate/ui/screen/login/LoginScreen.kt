@@ -39,11 +39,11 @@ import coil.request.ImageRequest
 import coil.size.OriginalSize
 import com.goskate.goskate.R
 import com.goskate.goskate.ui.components.ButtonWithCornerShape
-import com.goskate.goskate.ui.components.TextFieldWithIcons
+import com.goskate.goskate.ui.components.TextFieldWithIconsComponent
 import com.goskate.goskate.ui.theme.GoSkateTheme
 
 @Composable
-fun LoginScreen(navController:NavController) {
+fun LoginScreen(navController: NavController) {
     ConstraintLayout(modifier = Modifier.fillMaxSize()) {
         val (
             header,
@@ -127,7 +127,7 @@ fun LoginScreen(navController:NavController) {
                     end.linkTo(header.end)
                 },
         )
-        TextFieldWithIcons(
+        TextFieldWithIconsComponent(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 24.dp)
@@ -139,9 +139,10 @@ fun LoginScreen(navController:NavController) {
             label = "Email address",
             placeHolder = "Enter your e-mail",
             imageVector = Icons.Default.Email,
+            isPassword = false,
         )
 
-        TextFieldWithIcons(
+        TextFieldWithIconsComponent(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 24.dp)
@@ -153,6 +154,7 @@ fun LoginScreen(navController:NavController) {
             label = "Password",
             placeHolder = "Enter your password",
             imageVector = Icons.Default.Lock,
+            isPassword = true,
         )
         Spacer(
             Modifier
@@ -174,7 +176,10 @@ fun LoginScreen(navController:NavController) {
                     end.linkTo(parent.end)
                 },
             text = "Log in",
-        ) {}
+            onClick = {
+                navController.navigate("map")
+            },
+        )
         Column(
             modifier = Modifier
                 .wrapContentWidth()

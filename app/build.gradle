@@ -74,4 +74,9 @@ dependencies {
     androidTestImplementation 'io.mockk:mockk-android:1.13.5'
     implementation 'io.mockk:mockk-android:1.13.5'
     implementation 'io.mockk:mockk-agent-android:1.13.5'
+
+    //Maps
+    implementation 'com.google.maps.android:maps-compose:2.11.0'
+    implementation 'com.google.android.gms:play-services-maps:18.1.0'
+
 }

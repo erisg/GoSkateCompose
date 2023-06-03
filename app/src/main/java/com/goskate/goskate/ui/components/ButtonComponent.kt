@@ -16,10 +16,11 @@ import com.goskate.goskate.ui.theme.white
 fun ButtonWithCornerShape(
     modifier: Modifier,
     text: String,
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) {
     Button(
         onClick = {
+            onClick.invoke()
         },
         colors = ButtonDefaults.buttonColors(
             containerColor = white,
