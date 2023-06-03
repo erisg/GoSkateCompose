@@ -1,10 +1,12 @@
 package com.goskate.goskate.ui.screen.map
 
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
@@ -17,6 +19,7 @@ import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.MarkerState
 import com.google.maps.android.compose.rememberCameraPositionState
 import com.goskate.goskate.R
+import com.goskate.goskate.ui.components.BottomSheet
 import com.goskate.goskate.ui.theme.GoSkateTheme
 
 @Composable
@@ -28,6 +31,13 @@ fun MapsScreen() {
                 mapStyleOptions = MapStyleOptions.loadRawResourceStyle(context, R.raw.map_style),
             ),
         )
+    }
+    var showSheet by remember { mutableStateOf(false) }
+
+    if (showSheet) {
+        BottomSheet() {
+            showSheet = false
+        }
     }
     val singapore = LatLng(4.573895909588669, -74.10398668418597)
     val cameraPositionState = rememberCameraPositionState {
@@ -43,6 +53,10 @@ fun MapsScreen() {
             state = MarkerState(position = singapore),
             title = "",
             snippet = "",
+            onClick = { marker ->
+                showSheet = true
+                true
+            },
         )
     }
 }
