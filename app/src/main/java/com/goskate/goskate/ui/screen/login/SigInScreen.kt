@@ -92,7 +92,6 @@ fun SigInScreen(navController: NavController) {
         Column(
             modifier = Modifier
                 .wrapContentWidth()
-                .wrapContentHeight()
                 .padding(horizontal = 24.dp)
                 .constrainAs(content) {
                     top.linkTo(title.bottom)

@@ -2,7 +2,6 @@ package com.goskate.goskate.ui.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
@@ -27,7 +26,7 @@ fun Banner(image: ImageVector?, description: String) {
             .background(BlueDark10, Shapes.medium),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        if (image!=null) {
+        if (image != null) {
             Image(
                 imageVector = image,
                 contentDescription = "",

@@ -1,11 +1,7 @@
 package com.goskate.goskate.ui.screen.map
 
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Share
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -25,9 +21,8 @@ import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.MarkerState
 import com.google.maps.android.compose.rememberCameraPositionState
 import com.goskate.goskate.R
-import com.goskate.goskate.ui.components.Banner
 import com.goskate.goskate.ui.components.BottomSheetComponent
-import com.goskate.goskate.ui.components.ItemImage
+import com.goskate.goskate.ui.components.ChipFilterComponent
 import com.goskate.goskate.ui.theme.GoSkateTheme
 
 @Composable
@@ -43,7 +38,7 @@ fun MapsScreen() {
     var showSheet by remember { mutableStateOf(false) }
 
     if (showSheet) {
-        BottomSheetComponent() {
+        BottomSheetComponent {
             showSheet = false
         }
     }
@@ -78,7 +73,7 @@ fun MapsScreen() {
                 },
             )
         }
-        LazyRow(
+        ChipFilterComponent(
             modifier = Modifier
                 .padding(top = 24.dp)
                 .constrainAs(bannersTop) {
@@ -86,17 +81,7 @@ fun MapsScreen() {
                     start.linkTo(parent.start)
                     end.linkTo(parent.end)
                 },
-        ) {
-            item {
-                Banner(null, "Eventos")
-            }
-            item {
-                Banner(null, "SkatePark")
-            }
-            item {
-                Banner(null, "Street")
-            }
-        }
+        )
     }
 }
 
