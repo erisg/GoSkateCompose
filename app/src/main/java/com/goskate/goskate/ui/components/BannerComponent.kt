@@ -21,7 +21,6 @@ import com.goskate.goskate.ui.theme.black
 fun Banner(image: ImageVector?, description: String) {
     Row(
         modifier = Modifier
-            .padding(horizontal = 8.dp)
             .wrapContentSize()
             .background(BlueDark10, Shapes.medium),
         verticalAlignment = Alignment.CenterVertically,
