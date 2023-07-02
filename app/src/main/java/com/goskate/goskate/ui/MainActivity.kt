@@ -1,4 +1,4 @@
-package com.goskate.goskate
+package com.goskate.goskate.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

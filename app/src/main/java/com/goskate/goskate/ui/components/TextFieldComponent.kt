@@ -1,6 +1,5 @@
 package com.goskate.goskate.ui.components
 
-import androidx.compose.material.icons.Icons
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
@@ -28,12 +27,14 @@ fun TextFieldWithIconsComponent(
     label: String,
     placeHolder: String,
     imageVector: ImageVector,
-    isPassword: Boolean
+    isPassword: Boolean,
 ) {
     var text by rememberSaveable { mutableStateOf("") }
     return OutlinedTextField(
         value = text,
-        leadingIcon = { Icon(imageVector = imageVector, contentDescription = imageVector.toString()) },
+        leadingIcon = {
+            Icon(imageVector = imageVector, contentDescription = imageVector.toString())
+        },
         onValueChange = {
             text = it
         },

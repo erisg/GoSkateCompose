@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "792789421727",
+    "firebase_url": "https://goskate-70e1d-default-rtdb.firebaseio.com",
+    "project_id": "goskate-70e1d",
+    "storage_bucket": "goskate-70e1d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:792789421727:android:46007058b270a5d87a1caa",
+        "android_client_info": {
+          "package_name": "com.goskate.goskate"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "792789421727-8ej39bcbv3tm5rb5a50enlit6qac165g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCT6jySlYJ1_phXOLUZvN3tYNQB3jUcR-g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "792789421727-8ej39bcbv3tm5rb5a50enlit6qac165g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
