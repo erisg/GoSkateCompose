@@ -28,6 +28,8 @@ fun TextFieldWithIconsComponent(
     placeHolder: String,
     imageVector: ImageVector,
     isPassword: Boolean,
+    isErrorFormat: Boolean,
+    onValueChange: (String) -> Unit,
 ) {
     var text by rememberSaveable { mutableStateOf("") }
     return OutlinedTextField(
@@ -37,7 +39,9 @@ fun TextFieldWithIconsComponent(
         },
         onValueChange = {
             text = it
+            onValueChange(it)
         },
+        isError = isErrorFormat,
         modifier = modifier,
         label = { Text(text = label) },
         placeholder = { Text(text = placeHolder) },
@@ -46,6 +50,7 @@ fun TextFieldWithIconsComponent(
             focusedBorderColor = black,
             unfocusedBorderColor = gray,
         ),
+        singleLine = true,
         visualTransformation = if (isPassword) PasswordVisualTransformation() else VisualTransformation.None,
     )
 }

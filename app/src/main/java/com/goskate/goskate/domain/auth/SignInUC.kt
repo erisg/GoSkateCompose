@@ -7,4 +7,3 @@ class SignInUC @Inject constructor(private val authRepository: AuthRepository) {
     suspend fun signUp(email: String, password: String) = authRepository.signUp(email, password)
     suspend fun signIn(email: String, password: String) = authRepository.signIn(email, password)
 }
-}

@@ -106,6 +106,9 @@ fun SigInScreen(navController: NavController) {
                 placeHolder = "Enter your name",
                 imageVector = Icons.Default.Person,
                 isPassword = false,
+                onValueChange = {
+                },
+                isErrorFormat = false,
             )
             TextFieldWithIconsComponent(
                 modifier = Modifier
@@ -114,6 +117,9 @@ fun SigInScreen(navController: NavController) {
                 placeHolder = "Enter your e-mail",
                 imageVector = Icons.Default.Email,
                 isPassword = false,
+                onValueChange = {
+                },
+                isErrorFormat = false,
             )
 
             TextFieldWithIconsComponent(
@@ -123,6 +129,9 @@ fun SigInScreen(navController: NavController) {
                 placeHolder = "Enter your password",
                 imageVector = Icons.Default.Lock,
                 isPassword = true,
+                onValueChange = {
+                },
+                isErrorFormat = false,
             )
             TextFieldWithIconsComponent(
                 modifier = Modifier
@@ -131,6 +140,9 @@ fun SigInScreen(navController: NavController) {
                 placeHolder = "Confirm password",
                 imageVector = Icons.Default.Lock,
                 isPassword = true,
+                onValueChange = {
+                },
+                isErrorFormat = false,
             )
             TextFieldWithIconsComponent(
                 modifier = Modifier
@@ -139,6 +151,9 @@ fun SigInScreen(navController: NavController) {
                 placeHolder = "Add your age",
                 imageVector = ImageVector.vectorResource(R.drawable.baseline_calendar_today_24),
                 isPassword = false,
+                onValueChange = {
+                },
+                isErrorFormat = false,
             )
             SpinnerComponent(
                 modifier = Modifier
