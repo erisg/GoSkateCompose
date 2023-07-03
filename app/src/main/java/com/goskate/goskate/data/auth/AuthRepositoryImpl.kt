@@ -1,5 +1,6 @@
 package com.goskate.goskate.data.auth
 
+import coil.network.HttpException
 import com.google.firebase.auth.FirebaseAuth
 import com.goskate.goskate.domain.models.User
 import kotlinx.coroutines.flow.Flow
@@ -24,10 +25,10 @@ class AuthRepositoryImpl @Inject constructor() : AuthRepository {
 
     override suspend fun signIn(email: String, password: String): Flow<Result<User>> = flow {
         try {
-            val result = firebaseAuth.signInWithEmailAndPassword(email, password).await()
+            firebaseAuth.signInWithEmailAndPassword(email, password)
             emit(Result.success(User()))
-        } catch (e: Exception) {
-            emit(Result.failure(Throwable("Algo falló. Inténtalo de nuevo")))
+        } catch (e: HttpException) {
+            emit(Result.failure(Throwable("Algo fallo intenta de nuevo")))
         }
     }.catch {
         emit(Result.failure(Throwable("Algo fallo intenta de nuevo")))
