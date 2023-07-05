@@ -281,7 +281,7 @@ fun LoginScreen(navController: NavController) {
                     modifier = Modifier
                         .padding(top = 10.dp)
                         .fillMaxWidth(),
-                    fontSize = 12.sp,
+                    fontSize = 10.sp,
                     textAlign = TextAlign.Center,
                     fontWeight = FontWeight.Bold,
                 )

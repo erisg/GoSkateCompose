@@ -55,7 +55,10 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SpinnerComponent(modifier: Modifier) {
+fun SpinnerComponent(
+    modifier: Modifier,
+    onValueChange: (String) -> Unit
+) {
     var showDialog by remember {
         mutableStateOf(false)
     }
@@ -158,6 +161,7 @@ fun SpinnerComponent(modifier: Modifier) {
                 },
                 preSelectedItem = preSelectedItem,
                 selectedItem = {
+                    onValueChange.invoke(it)
                     isSelectItem = true
                     preSelectedItem = it
                     isCardClicked = false
@@ -299,6 +303,6 @@ fun Modifier.clickableNoRipple(onClickItem: () -> Unit) = composed(
 @Composable
 fun SpinnerComponentPreview() {
     GoSkateTheme {
-        SpinnerComponent(Modifier.fillMaxWidth())
+        SpinnerComponent(Modifier.fillMaxWidth(), {})
     }
 }

@@ -1,4 +1,5 @@
 <resources>
+    //Login
     <string name="app_name">GoSkate</string>
     <string name="welcome_message">Go Skate</string>
     <string name="welcome_message_sigin">Welcome to Go Skate</string>
@@ -15,8 +16,17 @@
     <string name="sign_up">Sign up</string>
     <string name="login_in">Log in</string>
     <string name="advice_title_login_failure">Oops, please make sure that your email and password are written correctly.</string>
+    //Sign In
     <string-array name="genders">
         <item>@string/label_female</item>
         <item>@string/label_male</item>
     </string-array>
+    <string name="name">Name</string>
+    <string name="enter_name">Enter your name</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="age">Age</string>
+    <string name="add_age">Add your age</string>
+    <string name="sign_in">Sign In</string>
+    <string name="advice_password_match">Please verify that the passwords match.</string>
+    <string name="error_sign_in">To sign up, you must fill in all the fields.</string>
 </resources>

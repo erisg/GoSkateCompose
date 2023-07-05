@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    //Login
     <string name="app_name">GoSkate</string>
     <string name="welcome_message">Go Skate</string>
     <string name="welcome_message_sigin">Bienvenido a Go Skate</string>
@@ -7,7 +8,7 @@
     <string name="label_female">Mujer</string>
     <string name="label_male">Hombre</string>
     <string name="email_address">Correo electrónico</string>
-    <string name="enter_email">Introduce tu correo electrónico</string>
+    <string name="enter_email">Ingresa tu correo</string>
     <string name="valid_address">Por favor, ingresa una dirección de correo electrónico válida.</string>
     <string name="password">Contraseña</string>
     <string name="enter_password">Ingresa tu contraseña</string>
@@ -16,8 +17,17 @@
     <string name="sign_up">Regístrate</string>
     <string name="login_in">Iniciar sesión</string>
     <string name="advice_title_login_failure">Ups, verifica que tu correo electrónico y contraseña estén escritos correctamente.</string>
+    //Sign In
     <string-array name="genders">
         <item>@string/label_female</item>
         <item>@string/label_male</item>
     </string-array>
+    <string name="name">Nombre</string>
+    <string name="enter_name">Ingresa tu nombre</string>
+    <string name="confirm_password">Confirma Contraseña</string>
+    <string name="age">Edad</string>
+    <string name="add_age">Agrega tu edad</string>
+    <string name="sign_in">Registrarse</string>
+    <string name="advice_password_match">Por favor, verifica que las contraseñas coincidan.</string>
+    <string name="error_sign_in">Para registrarte, debes completar todos los campos.</string>
 </resources>
