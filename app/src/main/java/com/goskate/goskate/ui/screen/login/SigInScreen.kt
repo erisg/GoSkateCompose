@@ -16,6 +16,7 @@ import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -47,8 +48,10 @@ import com.goskate.goskate.ui.viewmodels.AuthViewModel
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
-fun SigInScreen(navController: NavController) {
+fun SignUpScreen(navController: NavController) {
     val viewModel: AuthViewModel = hiltViewModel()
+    val userInformation = viewModel.signUpState.collectAsState()
+
     val name = remember { mutableStateOf("") }
     val email = remember { mutableStateOf("") }
     val password = remember { mutableStateOf("") }
@@ -58,6 +61,21 @@ fun SigInScreen(navController: NavController) {
     var isError by remember {
         mutableStateOf(false)
     }
+
+    var isLoading by remember(key1 = userInformation.value.isLoading) {
+        mutableStateOf(userInformation.value.isLoading)
+    }
+    val isSuccess by remember(key1 = userInformation.value.data) {
+        mutableStateOf(userInformation.value.data)
+    }
+    val isErrorData by remember(key1 = userInformation.value.messageError) {
+        mutableStateOf(userInformation.value.messageError)
+    }
+
+    if (isSuccess != null) {
+        navController.navigate("map")
+    }
+
     val context = LocalContext.current
     Column(
         modifier = Modifier
@@ -171,6 +189,19 @@ fun SigInScreen(navController: NavController) {
                 textAlign = TextAlign.Center,
             )
         }
+        if (isErrorData.isNotEmpty()) {
+            isLoading = false
+            Text(
+                text = isErrorData,
+                color = Color.Red,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp),
+                fontSize = 10.sp,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center,
+            )
+        }
         Spacer(modifier = Modifier.height(16.dp))
         ButtonWithCornerShape(
             modifier = Modifier
@@ -182,19 +213,23 @@ fun SigInScreen(navController: NavController) {
                     email.value.isNotEmpty() &&
                     password.value.isNotEmpty() &&
                     confirmPassword.value.isNotEmpty() &&
-                    age.value.isNotEmpty() && gender.value.isNotEmpty()
+                    age.value.isNotEmpty()
                 ) {
                     if (password.value == confirmPassword.value) {
-                        viewModel.signIn(email.value, password.value)
+                        viewModel.signUp(
+                            email = email.value,
+                            password = password.value,
+                            name = name.value,
+                            age = age.value,
+                        )
                     } else {
                         isError = true
                     }
                 } else {
                     isError = true
                 }
-                //  navController.navigate("map")
             },
-            isLoading = false,
+            isLoading = isLoading,
         )
         Spacer(
             modifier = Modifier
