@@ -57,7 +57,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun SpinnerComponent(
     modifier: Modifier,
-    onValueChange: (String) -> Unit
+    onValueChange: (String) -> Unit,
 ) {
     var showDialog by remember {
         mutableStateOf(false)
@@ -82,6 +82,7 @@ fun SpinnerComponent(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
+                .wrapContentHeight()
                 .constrainAs(textField) {},
         ) {
             Card(
@@ -153,7 +154,7 @@ fun SpinnerComponent(
                 },
         )
         if (showDialog) {
-            LanguageDialog(
+            GenderDialog(
                 modifier = Modifier.constrainAs(dialog) {
                     top.linkTo(divider.bottom)
                     start.linkTo(divider.start)
@@ -173,7 +174,7 @@ fun SpinnerComponent(
 }
 
 @Composable
-fun LanguageDialog(
+fun GenderDialog(
     modifier: Modifier = Modifier,
     preSelectedItem: String,
     selectedItem: (String) -> Unit,
