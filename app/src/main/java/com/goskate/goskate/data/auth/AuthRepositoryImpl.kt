@@ -21,8 +21,12 @@ class AuthRepositoryImpl @Inject constructor() : AuthRepository {
                     if (task.isSuccessful) {
                         val user = auth.currentUser
                         user?.let { currentUser ->
-                            // Guardar datos adicionales en Realtime Database
-                            val userData = User(name, age)
+                            val userData = User(
+                                uid = currentUser.uid,
+                                name = name,
+                                email = email,
+                                age = age,
+                            )
                             database.reference.child("users").child(currentUser.uid).setValue(userData)
                                 .addOnCompleteListener { userDataTask ->
                                     if (userDataTask.isSuccessful) {

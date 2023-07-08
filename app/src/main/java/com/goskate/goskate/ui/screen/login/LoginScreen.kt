@@ -63,10 +63,10 @@ fun LoginScreen(navController: NavController) {
 
     val email = remember { mutableStateOf("") }
     val password = remember { mutableStateOf("") }
-    val isEmailError = remember { mutableStateOf(false) }
+    var isEmailError = remember { mutableStateOf(false) }
     val isEmptyData = remember { mutableStateOf(false) }
 
-    val isLoading by remember(key1 = userInformation.value.isLoading) {
+    var isLoading by remember(key1 = userInformation.value.isLoading) {
         mutableStateOf(userInformation.value.isLoading)
     }
     val isSuccess by remember(key1 = userInformation.value.data) {
@@ -186,6 +186,8 @@ fun LoginScreen(navController: NavController) {
             onClick = {
                 if (email.value.isNotEmpty() && password.value.isNotEmpty()) {
                     if (email.value.isValidEmail()) {
+                        isEmailError.value = false
+                        isEmptyData.value = false
                         viewModel.signIn(email.value, password.value)
                     } else {
                         isEmailError.value = true
@@ -196,9 +198,22 @@ fun LoginScreen(navController: NavController) {
             },
             isLoading = isLoading,
         )
-        if (isEmptyData.value && isError.isNotEmpty()) {
+        if (isEmptyData.value) {
             Text(
                 text = stringResource(id = R.string.must_enter_email),
+                color = Color.Red,
+                modifier = Modifier
+                    .padding(top = 10.dp)
+                    .fillMaxWidth(),
+                fontSize = 10.sp,
+                textAlign = TextAlign.Center,
+                fontWeight = FontWeight.Bold,
+            )
+        }
+        if (isError.isNotEmpty()) {
+            isLoading = false
+            Text(
+                text = isError,
                 color = Color.Red,
                 modifier = Modifier
                     .padding(top = 10.dp)
