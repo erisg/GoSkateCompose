@@ -12,6 +12,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.navigation.NavController
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MapStyleOptions
@@ -23,6 +24,7 @@ import com.google.maps.android.compose.rememberCameraPositionState
 import com.goskate.goskate.R
 import com.goskate.goskate.ui.components.BottomSheetComponent
 import com.goskate.goskate.ui.components.ChipFilterComponent
+import com.goskate.goskate.ui.components.LocationPermissionRequest
 import com.goskate.goskate.ui.theme.GoSkateTheme
 
 @Composable
@@ -36,6 +38,7 @@ fun MapsScreen() {
         )
     }
     var showSheet by remember { mutableStateOf(false) }
+    var isPermissionGranted by remember { mutableStateOf(false) }
 
     if (showSheet) {
         BottomSheetComponent {
@@ -51,28 +54,39 @@ fun MapsScreen() {
             bannersTop,
             map,
         ) = createRefs()
-        GoogleMap(
-            modifier = Modifier
-                .fillMaxSize()
-                .constrainAs(map) {
-                    top.linkTo(parent.top)
-                    start.linkTo(parent.start)
-                    end.linkTo(parent.end)
-                    bottom.linkTo(parent.bottom)
-                },
-            cameraPositionState = cameraPositionState,
-            properties = mapProperties,
-        ) {
-            Marker(
-                state = MarkerState(position = singapore),
-                title = "",
-                snippet = "",
-                onClick = { marker ->
-                    showSheet = true
-                    true
-                },
-            )
+        LocationPermissionRequest(
+            onPermissionDenied = {
+                isPermissionGranted = false
+            },
+            onPermissionGranted = {
+                isPermissionGranted = true
+            },
+        )
+        if (isPermissionGranted) {
+            GoogleMap(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .constrainAs(map) {
+                        top.linkTo(parent.top)
+                        start.linkTo(parent.start)
+                        end.linkTo(parent.end)
+                        bottom.linkTo(parent.bottom)
+                    },
+                cameraPositionState = cameraPositionState,
+                properties = mapProperties,
+            ) {
+                Marker(
+                    state = MarkerState(position = singapore),
+                    title = "",
+                    snippet = "",
+                    onClick = { marker ->
+                        showSheet = true
+                        true
+                    },
+                )
+            }
         }
+
         ChipFilterComponent(
             modifier = Modifier
                 .padding(top = 24.dp)

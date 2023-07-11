@@ -54,6 +54,9 @@ import com.goskate.goskate.ui.components.TextFieldWithIconsComponent
 import com.goskate.goskate.ui.components.isValidEmail
 import com.goskate.goskate.ui.theme.GoSkateTheme
 import com.goskate.goskate.ui.viewmodels.AuthViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
@@ -63,7 +66,7 @@ fun LoginScreen(navController: NavController) {
 
     val email = remember { mutableStateOf("") }
     val password = remember { mutableStateOf("") }
-    var isEmailError = remember { mutableStateOf(false) }
+    val isEmailError = remember { mutableStateOf(false) }
     val isEmptyData = remember { mutableStateOf(false) }
 
     var isLoading by remember(key1 = userInformation.value.isLoading) {
