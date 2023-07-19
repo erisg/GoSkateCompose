@@ -1,7 +1,9 @@
 package com.goskate.goskate.ui.components
 
 import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -21,9 +23,14 @@ import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -67,23 +74,6 @@ fun BottomSheetComponent(onDismiss: () -> Unit) {
             Banner(null, "Compartir")
         }
         Spacer(modifier = Modifier.height(10.dp))
-        LazyRow(
-            modifier = Modifier
-                .padding(16.dp)
-                .fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            items(count = 6) {
-                ItemImage(
-                    image = R.drawable.skateparkimg,
-                    withSize = 140.dp,
-                    heightSize = 140.dp,
-                )
-                Spacer(modifier = Modifier.width(8.dp))
-            }
-        }
-        Spacer(modifier = Modifier.height(10.dp))
         Text(
             text = "Direccion",
             fontWeight = FontWeight.Bold,
@@ -101,12 +91,31 @@ fun BottomSheetComponent(onDismiss: () -> Unit) {
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp),
         )
+        Spacer(modifier = Modifier.height(10.dp))
+        LazyRow(
+            modifier = Modifier
+                .padding(16.dp)
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            items(count = 6) {
+                ItemImage(
+                    image = R.drawable.skateparkimg,
+                    withSize = 140.dp,
+                    heightSize = 140.dp,
+                )
+                Spacer(modifier = Modifier.width(8.dp))
+            }
+        }
         Spacer(modifier = Modifier.size(height = 20.dp, width = 6.dp))
     }
 }
 
 @Composable
 fun ItemImage(image: Int, withSize: Dp, heightSize: Dp) {
+    var isScaled by remember { mutableStateOf(false) }
+    val scale by animateFloatAsState(if (isScaled) 1.5f else 1f)
     Box(
         modifier = Modifier
             .wrapContentWidth()
@@ -118,7 +127,11 @@ fun ItemImage(image: Int, withSize: Dp, heightSize: Dp) {
             modifier = Modifier
                 .animateContentSize()
                 .clip(RoundedCornerShape(16))
-                .fillMaxSize(),
+                .fillMaxSize()
+                .scale(scale)
+                .clickable {
+                    isScaled = !isScaled
+                },
             contentScale = ContentScale.FillWidth,
         )
     }

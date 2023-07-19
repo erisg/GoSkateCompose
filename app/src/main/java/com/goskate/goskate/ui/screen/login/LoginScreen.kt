@@ -1,7 +1,6 @@
 package com.goskate.goskate.ui.screen.login
 
 import android.os.Build.VERSION.SDK_INT
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -54,11 +53,7 @@ import com.goskate.goskate.ui.components.TextFieldWithIconsComponent
 import com.goskate.goskate.ui.components.isValidEmail
 import com.goskate.goskate.ui.theme.GoSkateTheme
 import com.goskate.goskate.ui.viewmodels.AuthViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun LoginScreen(navController: NavController) {
     val viewModel: AuthViewModel = hiltViewModel()

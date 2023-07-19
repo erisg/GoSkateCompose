@@ -93,11 +93,17 @@ dependencies {
     implementation 'io.mockk:mockk-agent-android:1.13.5'
 
     //Firebase
-    implementation 'com.google.firebase:firebase-auth:22.0.0'
-    implementation 'com.google.firebase:firebase-firestore-ktx:24.6.1'
+    implementation 'com.google.firebase:firebase-auth:22.1.0'
+    implementation 'com.google.firebase:firebase-firestore-ktx:24.7.0'
 
     //Maps
     implementation 'com.google.maps.android:maps-compose:2.11.0'
     implementation 'com.google.android.gms:play-services-maps:18.1.0'
+
+    //Coil
+    implementation "io.coil-kt:coil-compose:2.2.1"
+
+    implementation 'com.google.accompanist:accompanist-pager:0.22.0-rc'
+
 
 }
