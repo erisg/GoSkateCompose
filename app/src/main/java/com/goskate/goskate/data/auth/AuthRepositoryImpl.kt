@@ -10,10 +10,10 @@ import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
-class AuthRepositoryImpl @Inject constructor() : AuthRepository {
-    private val auth: FirebaseAuth by lazy { FirebaseAuth.getInstance() }
-    private val database: FirebaseDatabase by lazy { FirebaseDatabase.getInstance() }
-
+class AuthRepositoryImpl @Inject constructor(
+    private val auth: FirebaseAuth,
+    private val database: FirebaseDatabase
+) : AuthRepository {
     override suspend fun signUp(email: String, password: String, name: String, age: String): Flow<Result<User>> =
         callbackFlow {
             auth.createUserWithEmailAndPassword(email, password)

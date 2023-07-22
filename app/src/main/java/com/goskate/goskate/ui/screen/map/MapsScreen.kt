@@ -6,6 +6,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -15,7 +16,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
-import com.google.android.gms.maps.GoogleMap
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MapStyleOptions
@@ -30,9 +31,12 @@ import com.goskate.goskate.ui.components.BottomSheetComponent
 import com.goskate.goskate.ui.components.ChipFilterComponent
 import com.goskate.goskate.ui.components.LocationPermissionRequest
 import com.goskate.goskate.ui.theme.GoSkateTheme
+import com.goskate.goskate.ui.viewmodels.MapsViewModel
 
 @Composable
 fun MapsScreen() {
+    val viewModel: MapsViewModel = hiltViewModel()
+    val spotsState = viewModel.spotsState.collectAsState()
     val context = LocalContext.current
     var showSheet by remember { mutableStateOf(false) }
     var isPermissionGranted by remember { mutableStateOf(false) }
@@ -41,14 +45,28 @@ fun MapsScreen() {
     val cameraPositionState = rememberCameraPositionState {
         position = CameraPosition.fromLatLngZoom(singapore, 13f)
     }
+    var isLoading by remember(key1 = spotsState.value.isLoading) {
+        mutableStateOf(spotsState.value.isLoading)
+    }
+    val isSuccess by remember(key1 = spotsState.value.data) {
+        mutableStateOf(spotsState.value.data)
+    }
+    val isError by remember(key1 = spotsState.value.messageError) {
+        mutableStateOf(spotsState.value.messageError)
+    }
     val mapProperties by remember {
         mutableStateOf(
             MapProperties(
-                mapStyleOptions = MapStyleOptions.loadRawResourceStyle(context, R.raw.map_style),
+                mapStyleOptions = MapStyleOptions
+                    .loadRawResourceStyle(
+                        context,
+                        R.raw.map_style,
+                    ),
                 isMyLocationEnabled = true,
             ),
         )
     }
+    viewModel.getAllSpots()
     val shareLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.StartActivityForResult(),
         onResult = {},
@@ -100,15 +118,17 @@ fun MapsScreen() {
                 cameraPositionState = cameraPositionState,
                 properties = mapProperties,
             ) {
-                Marker(
-                    state = MarkerState(position = singapore),
-                    title = "",
-                    snippet = "",
-                    onClick = { marker ->
-                        showSheet = true
-                        true
-                    },
-                )
+                isSuccess.forEach { spot ->
+                    Marker(
+                        state = MarkerState(position = singapore),
+                        title = spot.name,
+                        onClick = { marker ->
+                            showSheet = true
+                            true
+                        },
+                    )
+                }
+
                 if (startRouteCreation) {
                     Polyline(
                         points = listOf(

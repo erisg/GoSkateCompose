@@ -3,7 +3,9 @@ package com.goskate.goskate.domain.auth
 import com.goskate.goskate.data.auth.AuthRepository
 import javax.inject.Inject
 
-class AuthUC @Inject constructor(private val authRepository: AuthRepository) {
+class AuthUC @Inject constructor(
+    private val authRepository: AuthRepository,
+) {
     suspend fun signUp(
         email: String,
         password: String,

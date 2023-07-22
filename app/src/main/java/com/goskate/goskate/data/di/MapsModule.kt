@@ -1,9 +1,8 @@
 package com.goskate.goskate.data.di
 
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
-import com.goskate.goskate.data.auth.AuthRepository
-import com.goskate.goskate.data.auth.AuthRepositoryImpl
+import com.goskate.goskate.data.map.MapsRepository
+import com.goskate.goskate.data.map.MapsRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -11,13 +10,11 @@ import dagger.hilt.components.SingletonComponent
 
 @Module
 @InstallIn(SingletonComponent::class)
-object AuthModule {
-
+object MapsModule {
     @Provides
-    fun provideAuthRepository(
-        auth: FirebaseAuth,
+    fun provideMapsRepository(
         database: FirebaseDatabase,
-    ): AuthRepository {
-        return AuthRepositoryImpl(auth, database)
+    ): MapsRepository {
+        return MapsRepositoryImpl(database)
     }
 }
