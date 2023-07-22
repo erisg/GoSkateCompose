@@ -2,10 +2,10 @@
 <resources>
     <style name="Theme.GoSkate" parent="android:Theme.Material.Light.NoActionBar" >
         <item name="android:statusBarColor">
-            @color/purple_500
+            @color/teal
         </item>
         <item name="android:navigationBarColor">
-            @color/purple_500
+            @color/teal
         </item>
     </style>
 </resources>

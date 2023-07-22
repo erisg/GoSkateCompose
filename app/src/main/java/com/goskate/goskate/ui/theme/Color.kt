@@ -8,8 +8,8 @@ val Pink80 = Color(0xFF917D83)
 
 val Purple40 = Color(0xFF6650a4)
 val BlueDark = Color(0xEE242F3E)
-val BlueDark10 = Color(0xB51B8FFC)
-
+val Teal = Color(0xFF007f80)
+val orange = Color(0xFFFFA600)
 val white = Color(0xFFFFFFFF)
 val black = Color(0xFF000000)
 val gray = Color(0xFFE4E3E3)

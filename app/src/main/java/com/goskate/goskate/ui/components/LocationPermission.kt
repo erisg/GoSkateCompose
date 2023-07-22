@@ -12,6 +12,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 
 @Composable
 fun LocationPermissionRequest(
@@ -20,6 +22,7 @@ fun LocationPermissionRequest(
 ) {
     val PERMISSION_REQUEST_CODE = 101
     val context = LocalContext.current
+    var fusedLocationProvider: FusedLocationProviderClient
     val showDialog = remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
@@ -29,6 +32,8 @@ fun LocationPermissionRequest(
         ) == PackageManager.PERMISSION_GRANTED
 
         if (isPermissionGranted) {
+            fusedLocationProvider = LocationServices.getFusedLocationProviderClient(context)
+            fusedLocationProvider.lastLocation
             onPermissionGranted()
         } else {
             val shouldShowRationale = ActivityCompat.shouldShowRequestPermissionRationale(

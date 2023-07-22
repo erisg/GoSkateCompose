@@ -1,5 +1,8 @@
 package com.goskate.goskate.ui.screen.map
 
+import android.content.Intent
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
@@ -12,6 +15,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
+import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MapStyleOptions
@@ -19,6 +23,7 @@ import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.MapProperties
 import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.MarkerState
+import com.google.maps.android.compose.Polyline
 import com.google.maps.android.compose.rememberCameraPositionState
 import com.goskate.goskate.R
 import com.goskate.goskate.ui.components.BottomSheetComponent
@@ -29,24 +34,45 @@ import com.goskate.goskate.ui.theme.GoSkateTheme
 @Composable
 fun MapsScreen() {
     val context = LocalContext.current
+    var showSheet by remember { mutableStateOf(false) }
+    var isPermissionGranted by remember { mutableStateOf(false) }
+    var startRouteCreation by remember { mutableStateOf(false) }
+    val singapore = LatLng(4.596821130786782, -74.08351824614991)
+    val cameraPositionState = rememberCameraPositionState {
+        position = CameraPosition.fromLatLngZoom(singapore, 13f)
+    }
     val mapProperties by remember {
         mutableStateOf(
             MapProperties(
                 mapStyleOptions = MapStyleOptions.loadRawResourceStyle(context, R.raw.map_style),
+                isMyLocationEnabled = true,
             ),
         )
     }
-    var showSheet by remember { mutableStateOf(false) }
-    var isPermissionGranted by remember { mutableStateOf(false) }
+    val shareLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.StartActivityForResult(),
+        onResult = {},
+    )
 
     if (showSheet) {
-        BottomSheetComponent {
-            showSheet = false
-        }
-    }
-    val singapore = LatLng(4.573895909588669, -74.10398668418597)
-    val cameraPositionState = rememberCameraPositionState {
-        position = CameraPosition.fromLatLngZoom(singapore, 13f)
+        BottomSheetComponent(
+            onDismiss = {
+                showSheet = false
+            },
+            onCreateRute = {
+                startRouteCreation = true
+                showSheet = false
+            },
+            onShareLink = {
+                val intent = Intent().apply {
+                    action = Intent.ACTION_SEND
+                    putExtra(Intent.EXTRA_TEXT, "https://gostake.com/spot/22")
+                    type = "text/plain"
+                }
+                val chooserIntent = Intent.createChooser(intent, "Compartir texto con:")
+                shareLauncher.launch(chooserIntent)
+            },
+        )
     }
     ConstraintLayout(modifier = Modifier.fillMaxSize()) {
         val (
@@ -83,6 +109,14 @@ fun MapsScreen() {
                         true
                     },
                 )
+                if (startRouteCreation) {
+                    Polyline(
+                        points = listOf(
+                            LatLng(4.579117498048951, -74.098724377972),
+                            LatLng(4.596821130786782, -74.08351824614991),
+                        ),
+                    )
+                }
             }
         }
 

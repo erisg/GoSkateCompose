@@ -23,7 +23,7 @@ import androidx.compose.ui.graphics.Color.Companion.Unspecified
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.goskate.goskate.ui.theme.BlueDark10
+import com.goskate.goskate.ui.theme.Teal
 import com.goskate.goskate.ui.theme.GoSkateTheme
 
 @Composable
@@ -45,7 +45,7 @@ fun ChipFilterComponent(modifier: Modifier) {
                     horizontal = 4.dp,
                 )
                 .background(
-                    color = BlueDark10,
+                    color = Teal,
                     shape = shape,
                 )
                 .clip(shape = shape)
