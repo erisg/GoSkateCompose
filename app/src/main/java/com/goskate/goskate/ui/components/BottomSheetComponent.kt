@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -35,6 +34,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.goskate.goskate.R
+import com.goskate.goskate.domain.models.Spot
 import com.goskate.goskate.ui.theme.BlueDark
 import com.goskate.goskate.ui.theme.GoSkateTheme
 import com.goskate.goskate.ui.theme.white
@@ -44,8 +44,9 @@ import com.goskate.goskate.ui.theme.white
 fun BottomSheetComponent(
     onDismiss: () -> Unit,
     onCreateRute: () -> Unit,
-    onShareLink: () -> Unit
-    ) {
+    onShareLink: () -> Unit,
+    selectedSpot: Spot,
+) {
     val modalBottomSheetState = rememberModalBottomSheetState()
     ModalBottomSheet(
         onDismissRequest = { onDismiss() },
@@ -54,14 +55,18 @@ fun BottomSheetComponent(
         containerColor = BlueDark,
     ) {
         Text(
-            text = "Tercer Milenio",
+            text = selectedSpot.name,
             color = white,
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Start,
             fontSize = 24.sp,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(bottom = 8.dp, start = 16.dp),
+                .padding(
+                    bottom = 8.dp,
+                    start = 16.dp,
+                    end = 8.dp,
+                ),
         )
         Row(
             modifier = Modifier
@@ -88,14 +93,16 @@ fun BottomSheetComponent(
                 description = "Como llegar",
                 onAction = {
                     onCreateRute.invoke()
-                })
+                },
+            )
             Spacer(modifier = Modifier.width(10.dp))
             Banner(
                 image = null,
                 description = "Compartir",
                 onAction = {
-                onShareLink.invoke()
-                })
+                    onShareLink.invoke()
+                },
+            )
         }
         Spacer(modifier = Modifier.height(10.dp))
         Text(
@@ -108,7 +115,7 @@ fun BottomSheetComponent(
                 .padding(horizontal = 16.dp),
         )
         Text(
-            text = "calle 67 # 55 - 87 sur",
+            text = selectedSpot.address,
             color = white,
             textAlign = TextAlign.Start,
             modifier = Modifier
@@ -153,6 +160,6 @@ fun ItemImage(image: Int) {
 @Composable
 fun BottomSheetPreview() {
     GoSkateTheme {
-        BottomSheetComponent({},{},{})
+        BottomSheetComponent({}, {}, {}, Spot())
     }
 }

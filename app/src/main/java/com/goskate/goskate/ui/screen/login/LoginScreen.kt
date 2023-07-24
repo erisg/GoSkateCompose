@@ -80,7 +80,7 @@ fun LoginScreen(navController: NavController) {
     ) {
         val context = LocalContext.current
 
-        if (isSuccess != null) {
+        if (isSuccess != null || viewModel.isLoggedIn()) {
             navController.navigate("map")
         }
 

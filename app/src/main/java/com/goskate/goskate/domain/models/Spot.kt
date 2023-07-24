@@ -3,16 +3,17 @@ package com.goskate.goskate.domain.models
 data class Spot(
     val name: String = String(),
     val address: String = String(),
-    val latLng: Double = 0.0,
-    val lonLng: Double = 0.0,
-    val type: SpotType = SpotType.SKATEPARK,
-    val images: List<String> = listOf(),
-    val assignedDays: AssignedDays,
+    val latLng: String = String(),
+    val lonLng: String = String(),
+    val type: String = String(),
+)
+data class Images(
+    val url: String = String(),
 )
 
 data class AssignedDays(
-    val skatepark: String?,
-    val bmx: String?,
+    val skate: String? = null,
+    val bmx: String? = null,
 )
 
 enum class SpotType {

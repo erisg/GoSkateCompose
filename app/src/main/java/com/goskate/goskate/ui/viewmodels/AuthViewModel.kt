@@ -91,6 +91,8 @@ class AuthViewModel @Inject constructor(
                 }.flowOn(dispatcher).launchIn(viewModelScope)
         }
     }
+
+    fun isLoggedIn() = authUC.isLoggedIn()
 }
 data class LoginState(
     val isLoading: Boolean = false,

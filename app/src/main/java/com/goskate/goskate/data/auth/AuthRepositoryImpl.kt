@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 class AuthRepositoryImpl @Inject constructor(
     private val auth: FirebaseAuth,
-    private val database: FirebaseDatabase
+    private val database: FirebaseDatabase,
 ) : AuthRepository {
     override suspend fun signUp(email: String, password: String, name: String, age: String): Flow<Result<User>> =
         callbackFlow {
@@ -64,4 +64,5 @@ class AuthRepositoryImpl @Inject constructor(
     fun signOut() {
         auth.signOut()
     }
+    override fun isLoggedIn() = auth.currentUser != null
 }

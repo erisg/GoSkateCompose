@@ -16,4 +16,6 @@ class AuthUC @Inject constructor(
         email: String,
         password: String,
     ) = authRepository.signIn(email, password)
+
+    fun isLoggedIn() = authRepository.isLoggedIn()
 }

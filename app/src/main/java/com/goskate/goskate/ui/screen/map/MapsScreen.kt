@@ -27,6 +27,7 @@ import com.google.maps.android.compose.MarkerState
 import com.google.maps.android.compose.Polyline
 import com.google.maps.android.compose.rememberCameraPositionState
 import com.goskate.goskate.R
+import com.goskate.goskate.domain.models.Spot
 import com.goskate.goskate.ui.components.BottomSheetComponent
 import com.goskate.goskate.ui.components.ChipFilterComponent
 import com.goskate.goskate.ui.components.LocationPermissionRequest
@@ -40,13 +41,13 @@ fun MapsScreen() {
     val context = LocalContext.current
     var showSheet by remember { mutableStateOf(false) }
     var isPermissionGranted by remember { mutableStateOf(false) }
+    var isMapLoaded by remember { mutableStateOf(true) }
     var startRouteCreation by remember { mutableStateOf(false) }
-    val singapore = LatLng(4.596821130786782, -74.08351824614991)
     val cameraPositionState = rememberCameraPositionState {
-        position = CameraPosition.fromLatLngZoom(singapore, 13f)
+        position = CameraPosition.fromLatLngZoom(LatLng(0.0, 0.0), 12f)
     }
-    var isLoading by remember(key1 = spotsState.value.isLoading) {
-        mutableStateOf(spotsState.value.isLoading)
+    var selectedSpot by remember() {
+        mutableStateOf(Spot())
     }
     val isSuccess by remember(key1 = spotsState.value.data) {
         mutableStateOf(spotsState.value.data)
@@ -54,6 +55,7 @@ fun MapsScreen() {
     val isError by remember(key1 = spotsState.value.messageError) {
         mutableStateOf(spotsState.value.messageError)
     }
+    viewModel.getAllSpots()
     val mapProperties by remember {
         mutableStateOf(
             MapProperties(
@@ -66,11 +68,13 @@ fun MapsScreen() {
             ),
         )
     }
-    viewModel.getAllSpots()
     val shareLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.StartActivityForResult(),
         onResult = {},
     )
+    if (isError.isNotEmpty()) {
+        isMapLoaded = false
+    }
 
     if (showSheet) {
         BottomSheetComponent(
@@ -90,6 +94,7 @@ fun MapsScreen() {
                 val chooserIntent = Intent.createChooser(intent, "Compartir texto con:")
                 shareLauncher.launch(chooserIntent)
             },
+            selectedSpot = selectedSpot,
         )
     }
     ConstraintLayout(modifier = Modifier.fillMaxSize()) {
@@ -102,6 +107,7 @@ fun MapsScreen() {
                 isPermissionGranted = false
             },
             onPermissionGranted = {
+                cameraPositionState.position = CameraPosition.fromLatLngZoom(it, 12f)
                 isPermissionGranted = true
             },
         )
@@ -120,10 +126,13 @@ fun MapsScreen() {
             ) {
                 isSuccess.forEach { spot ->
                     Marker(
-                        state = MarkerState(position = singapore),
+                        state = MarkerState(
+                            position = LatLng(spot.latLng.toDouble(), spot.lonLng.toDouble()),
+                        ),
                         title = spot.name,
                         onClick = { marker ->
                             showSheet = true
+                            selectedSpot = spot
                             true
                         },
                     )
