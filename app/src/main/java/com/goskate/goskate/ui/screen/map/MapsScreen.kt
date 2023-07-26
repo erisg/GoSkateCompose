@@ -107,7 +107,7 @@ fun MapsScreen() {
                 isPermissionGranted = false
             },
             onPermissionGranted = {
-                cameraPositionState.position = CameraPosition.fromLatLngZoom(it, 12f)
+                cameraPositionState.position = CameraPosition.fromLatLngZoom(it, 13f)
                 isPermissionGranted = true
             },
         )
@@ -151,7 +151,7 @@ fun MapsScreen() {
 
         ChipFilterComponent(
             modifier = Modifier
-                .padding(top = 24.dp)
+                .padding(top = 32.dp)
                 .constrainAs(bannersTop) {
                     top.linkTo(parent.top)
                     start.linkTo(parent.start)

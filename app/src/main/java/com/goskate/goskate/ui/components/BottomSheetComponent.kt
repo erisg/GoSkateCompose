@@ -35,6 +35,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.goskate.goskate.R
 import com.goskate.goskate.domain.models.Spot
+import com.goskate.goskate.domain.models.SpotType
 import com.goskate.goskate.ui.theme.BlueDark
 import com.goskate.goskate.ui.theme.GoSkateTheme
 import com.goskate.goskate.ui.theme.white
@@ -68,20 +69,25 @@ fun BottomSheetComponent(
                     end = 8.dp,
                 ),
         )
-        Row(
-            modifier = Modifier
-                .padding(start = 16.dp)
-                .wrapContentWidth(),
-        ) {
-            Text(
-                text = "Hoy",
-                color = white,
-                fontWeight = FontWeight.Bold,
-                fontSize = 18.sp,
-                textAlign = TextAlign.Center,
-            )
-            Spacer(modifier = Modifier.width(8.dp))
-            Image(painter = painterResource(id = R.drawable.baseline_skateboarding_24), contentDescription = "skate")
+        if (selectedSpot.type == SpotType.SKATEPARK) {
+            Row(
+                modifier = Modifier
+                    .padding(start = 16.dp)
+                    .wrapContentWidth(),
+            ) {
+                Text(
+                    text = "Hoy",
+                    color = white,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 18.sp,
+                    textAlign = TextAlign.Center,
+                )
+                Spacer(modifier = Modifier.width(8.dp))
+                Image(
+                    painter = painterResource(id = R.drawable.baseline_skateboarding_24),
+                    contentDescription = "skate",
+                )
+            }
         }
         Row(
             modifier = Modifier

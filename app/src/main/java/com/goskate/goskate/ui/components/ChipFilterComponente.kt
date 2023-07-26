@@ -19,12 +19,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color.Companion.DarkGray
-import androidx.compose.ui.graphics.Color.Companion.Unspecified
+import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.goskate.goskate.ui.theme.Teal
+import com.goskate.goskate.ui.theme.BlueDark
 import com.goskate.goskate.ui.theme.GoSkateTheme
+import com.goskate.goskate.ui.theme.orange
 
 @Composable
 fun ChipFilterComponent(modifier: Modifier) {
@@ -45,7 +46,7 @@ fun ChipFilterComponent(modifier: Modifier) {
                     horizontal = 4.dp,
                 )
                 .background(
-                    color = Teal,
+                    color = orange,
                     shape = shape,
                 )
                 .clip(shape = shape)
@@ -63,7 +64,7 @@ fun ChipFilterComponent(modifier: Modifier) {
             }
             Text(
                 text = text,
-                color = Unspecified,
+                color = BlueDark,
             )
         }
     }
@@ -77,23 +78,26 @@ fun ChipFilterComponent(modifier: Modifier) {
     val streetRememberOneState = remember {
         mutableStateOf(false)
     }
+    val verticalRememberOneState = remember {
+        mutableStateOf(false)
+    }
     LazyRow(modifier = modifier) {
         item {
             TextChipWithIconVisibility(
                 iconId = Icons.Default.Check,
-                isSelected = eventsRememberOneState.value,
-                text = "Eventos",
+                isSelected = skateParkRememberOneState.value,
+                text = "SkatePark",
             ) {
-                eventsRememberOneState.value = it
+                skateParkRememberOneState.value = it
             }
         }
         item {
             TextChipWithIconVisibility(
                 iconId = Icons.Default.Check,
-                isSelected = skateParkRememberOneState.value,
-                text = "SkateParks",
+                isSelected = verticalRememberOneState.value,
+                text = "Vertical",
             ) {
-                skateParkRememberOneState.value = it
+                verticalRememberOneState.value = it
             }
         }
         item {
@@ -103,6 +107,15 @@ fun ChipFilterComponent(modifier: Modifier) {
                 text = "Street",
             ) {
                 streetRememberOneState.value = it
+            }
+        }
+        item {
+            TextChipWithIconVisibility(
+                iconId = Icons.Default.Check,
+                isSelected = eventsRememberOneState.value,
+                text = "Events",
+            ) {
+                eventsRememberOneState.value = it
             }
         }
     }

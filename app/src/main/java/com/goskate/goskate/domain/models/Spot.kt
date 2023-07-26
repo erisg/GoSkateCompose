@@ -5,7 +5,7 @@ data class Spot(
     val address: String = String(),
     val latLng: String = String(),
     val lonLng: String = String(),
-    val type: String = String(),
+    val type: SpotType = SpotType.SKATEPARK,
 )
 data class Images(
     val url: String = String(),
@@ -20,4 +20,6 @@ enum class SpotType {
     SKATEPARK,
     EVENT,
     STREET,
+    VERTICAL
 }
+
